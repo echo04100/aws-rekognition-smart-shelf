@@ -7,7 +7,7 @@
 
 ### 2.將偵測到的圖像儲存在S3
 修改放在Deeplens放在Lambda裡的程式(greengrassHelloWorld.py)
-可以參考我的程式碼[greengrassHelloWorld.py]
+可以參考我的程式碼[greengrassHelloWorld.py](https://github.com/echo04100/aws-rekognition-smart-shelf/blob/7496e1a095815b2977fc1eefc124d4ffac3ee549/deeplens-face-detection/greengrassHelloWorld.py)
 
 ### 3.透過Lambda來將S3裡的照片用rekognition來做辨識
 創建一個新的Lambda程式，並使用S3做觸發，來讓照片一但被偵測到便可以做辨識
