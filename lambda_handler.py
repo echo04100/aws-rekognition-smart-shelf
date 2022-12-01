@@ -144,10 +144,10 @@ def lambda_handler(event,context):
     
     for object in s3.Bucket(bucket).objects.all():
         detect_face001=detect_face(bucket,object.key,collection_id,threshold,maxFaces)
-        #indexed_faces_count = face_recognition(bucket,object.key)
+        indexed_faces_count = face_recognition(bucket,object.key)
         
     
-    #print("Time is: "+str(timestr)+"\n"+"Faces indexed count: "+str(indexed_faces_count))
+    print("Time is: "+str(timestr)+"\n"+"Faces indexed count: "+str(indexed_faces_count))
     
     
     
