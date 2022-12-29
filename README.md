@@ -1,6 +1,8 @@
 # AWS-rekogntion-smart-shelf
 ## how I use deeplens connect to the lambda and store picture in S3.
-  本專題系統開發所使用的平台為AWS亞馬遜雲端平台(Amazon Web Service)，語言則是使用Python3.9來進行程式的撰寫，並且使用Boto3(適用於Python的AWS開發套件，可將Python程式、程式庫或是指令碼與AWS服務進行整合)裡的函式來做為驅動其他資源的接口，以下為本專題的系統架構圖，可以看到使用Lambda(即AWS Lambda，是亞馬遜雲端平台內的一種無伺服器運算服務)作為控制各項服務之間的觸發連結，並以S3 bucket作為照片的儲存位置，Amazon Rekognition(即SaaS之影像辨識服務，可透過自定Label進行自定義標籤辨識，目前進階到可以辨別出各類物品等級別)則是用來作為辨識由一開始DeepLens攝影機擷取之具有臉部特徵的照片。當今天顧客進入商店並進入攝影機拍攝範圍內，如果曾經來過且為女性，便會發送有關女性的廣告簡訊；如果為男性，便發送有關男性的廣告簡訊。下圖一則為本系統實作示意圖。
+  當本研究中所使用的DeepLens攝影機一旦偵測到有人時，即會啟動人臉辨識系統，此辨識系統可以辨識性別為男性或女性，或是穿著打扮、心情狀態…等標籤，將每位顧客的來訪做紀錄，透過網路傳輸，會先經由AWS Lambda來進行偵測並擷取具有臉部特徵的影像，再來則會將擷取到的臉部照片放到S3內儲存，同時將S3作為觸發Lambda的媒介，一旦有照片輸入，Lambda便會開始執行程式。因此，使用這些照片能同時觸發AWS Lambda並使用AWS Rekognition做辨識，接下來將這些資料以無記名式的方式來為每位顧客都設置一個不重複的編號標籤(FaceId)，並將已辨認且加上標籤後的結果儲存。
+當下次有顧客造訪時，則透過下述的系統運作流程來對拍攝到的臉部照片進行辨識，如果辨識此顧客為第一次造訪，則將其照片進行標籤並儲存；如果辨識結果為此顧客曾經造訪過，也就是資料庫中已有此人的標籤化資料時，則會觸發AWS連結至Firebase的程式並以簡訊的方式依照男性或女性進行推播顧客商品之廣告訊息。
+
 ![flippers](https://yhc-website.s3.ap-northeast-1.amazonaws.com/images/aws_01.png) 
   
 ### 1.使用Deeplesns套用AWS的Templeate來偵測特定圖像
@@ -13,6 +15,6 @@
 ### 3.透過Lambda來將S3裡的照片用rekognition來做辨識
 創建一個新的Lambda程式，並使用S3做觸發，來讓照片一但被偵測到便可以做辨識
 
-### 4.將辨識出來的結果用邏輯判斷，並依據判斷結果將結果發送至特定人的信箱
-在同樣的Lambda程式裡做邏輯判斷，並串AWS SNS來將結果發送至特定信箱
+### 4.將辨識出來的結果用邏輯判斷，並依據判斷結果將結果發送至特定人的手機App上
+在同樣的Lambda程式裡做邏輯判斷，並串AWS SNS來將結果發送至特定手機上
 可參考我的程式碼[lambda_handler.py](https://github.com/echo04100/aws-rekognition-smart-shelf/blob/087d61feb79b00b831a3b671c45ba4078046a401/lambda_handler.py)
