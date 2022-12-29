@@ -4,7 +4,7 @@
 當下次有顧客造訪時，則透過下述的系統運作流程來對拍攝到的臉部照片進行辨識，如果辨識此顧客為第一次造訪，則將其照片進行標籤並儲存；如果辨識結果為此顧客曾經造訪過，也就是資料庫中已有此人的標籤化資料時，則會觸發AWS連結至Firebase的程式並以簡訊的方式依照男性或女性進行推播顧客商品之廣告訊息。
 
 ![flippers](https://yhc-website.s3.ap-northeast-1.amazonaws.com/images/aws_01.png) 
-  
+##步驟說明
 ### 1.使用Deeplesns套用AWS的Templeate來偵測特定圖像
 新增專案==>選擇Use a project template==>Face detection==>創立新專案
 
